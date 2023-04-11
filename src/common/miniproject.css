@@ -1,0 +1,45 @@
+.a{
+    text-align: center;
+}
+
+.tbl_div{
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    box-shadow: 2px 2px 10px gray;
+}
+.td_tit, .td_date, th,.td_no{
+    text-align: center;
+}
+.td_no{
+    width:20% ;
+}
+h1{
+    box-shadow: 2px 2px 10px gray;
+    width: 90%;
+    margin: 0 auto;
+    font-size: 5vw;
+    color: white;
+    background-color: black;
+    text-align: center;
+    padding: 3%;
+    height: 7vw;
+    line-height: 1vw;
+}
+.tit_a{
+    text-decoration: none;
+    color: white;
+}
+button{
+    background-color: black;
+    color: white;
+    border-radius: 20%;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+.serch{
+    text-align: center;
+}
