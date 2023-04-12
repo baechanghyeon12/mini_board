@@ -1,78 +1,75 @@
 <?php
-    define( "DOC_ROOT", $_SERVER["DOCUMENT_ROOT"]."/" );
-    define( "URL_DB", DOC_ROOT."mini_board/src/common/db_common.php" );
-    include_once( URL_DB );
+	define( "SRC_ROOT", $_SERVER["DOCUMENT_ROOT"]."/mini_board/src/" );
+	define( "URL_DB", SRC_ROOT."common/db_common.php" );
+	include_once( URL_DB );
+	
+	// Request Method를 획득
+	$http_method = $_SERVER["REQUEST_METHOD"];
 
-    // Request Method를 획득
-    $http_method = $_SERVER["REQUEST_METHOD"];
+	// GET 일때
+	if( $http_method === "GET" )
+	{
+		$board_no = 1;
+		if( array_key_exists( "board_no", $_GET ) )
+		{
+			$board_no = $_GET["board_no"];
+		}
+		$result_info = select_board_info_no( $board_no );
+	}
+	// POST 일때
+	else
+	{
+		$arr_post = $_POST;
+		$arr_info =
+			array(
+				"board_no" => $arr_post["board_no"]
+				,"board_title" => $arr_post["board_title"]
+				,"board_contents" => $arr_post["board_contents"]
+			);
+		
+		// update
+		$result_cnt = update_board_info_no( $arr_info );
 
-    //GET 체크
-    if($http_method === "GET")
-    {
-        $board_no = 1;
-        $board_serch = "";
-        if( array_key_exists ( "board_no", $_GET ) )                                           
-        {
-            $board_no = $_GET["board_no"];
-        }
-        $result_info = select_board_info_no( $board_no );
+		// select
+		// $result_info = select_board_info_no( $arr_post["board_no"] ); // 0412 del(삭제)
 
-        if( array_key_exists("board_serch", $_GET) )
-        {
-            $board_serch = "?board_serch=".$_GET["board_serch"];
-        }
-    }
-    // POST 일때
-    else
-    {
-        $arr_post = $_POST;
-        $arr_info =
-            array(
-                "board_no" => $arr_post["board_no"]
-                ,"board_title" => $arr_post["board_title"]
-                ,"board_contents" => $arr_post["board_contents"]
-            );
-        // update
-        $result_cnt = update_board_info_no($arr_info);
-        // select
-        $result_info = select_board_info_no( $arr_post["board_no"] );
-    }
-
+		header( "Location: board_detail.php?board_no=".$arr_post["board_no"] );
+		exit(); // exit(); 함수 아래에 있는 코드는 실행되지 않는다.
+		// 36행에서 redirect 했기 때문에 이후의 소스코드는 실행할 필요가 없다.
+	}
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="./common/miniproject.css">
-    <title>게시판</title>
-    <style>
-        form{
-            text-align:center;
-            margin:20 auto;
-        }
-    </style>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<link rel='stylesheet' href='css/common.css'>
+	<title>게시판</title>
 </head>
 <body>
-    <form method="post" action="board_update.php">
-    <label for="bno">게시글 번호 : </label>
-    <!-- name값이 키값이 된다. -->
-    <input type="text" name="board_no" id="bno" value="<?php echo $result_info['board_no']?>" readonly>
-    <br>
-    <label for="title">게시글 제목 : </label>
-    <input type="text" name="board_title" id="title" value="<?php echo $result_info['board_title']?>" >
-    <br>
-    <label for="contents">게시글 내용 : </label>
-    <input type="text" name="board_contents"  id="contents" value="<?php echo $result_info['board_contents']?>">
-    <br>
-    <button type="submit">수정</button>
-    <button ><a href='board_list.php<?php echo $board_serch ?>'>리스트</a></button>
-    </form>
+	<h1><a href="board_list.php"><img src="./img/리그오브레전드로고-300x138.png" alt="로고"></a></h1>
+	<div class="main_img">
+		<form method="post" action="board_update.php" class="div_base">
+			<label  for="bno">게시글 번호 : </label>
+			<input type="text" name="board_no" id="bno" value="<?php echo $result_info["board_no"] ?>" readonly>
+			<br>
+			<label  for="title">게시글 제목 : </label>
+			<input type="text" name="board_title" id="title" value="<?php echo $result_info["board_title"] ?>">
+			<br>
+			<label  for="contents">게시글 내용 : </label>
+			<input type="text" name="board_contents" id="contents" value="<?php echo $result_info["board_contents"] ?>">
+			<br>
+			<button type="submit">수정</button>
+			<button type="button">
+				<a href="board_detail.php?board_no=<?php echo $result_info["board_no"] ?>">
+				취소
+				</a>
+			</button>
+		</form>
+		<button type="button"><a href="board_list.php">리스트</a></button>
+</div>
 </body>
 </html>
