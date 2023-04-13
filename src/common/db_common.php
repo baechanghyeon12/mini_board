@@ -256,3 +256,57 @@ function delete_board_info_no( &$param_no )
 	return $result_cnt;
 }
 
+// ---------------------------------
+// 함수명	: insert_board_info
+// 기능		: 게시글 생성
+// 파라미터	: Array		$param_arr
+// 리턴값	: INT/STRING	$result_cnt/ERRMSG
+// ---------------------------------
+function insert_board_info( &$param_arr )
+{
+	$sql =
+		" INSERT INTO board_info ("
+		." board_title "
+		." ,board_contents "
+		." ,board_write_date "
+		.")"
+		." VALUES ("
+		." :board_title "
+		." ,:board_contents "
+		." ,NOW() "
+		." ) "
+		;
+	$arr_prepare=
+			array(
+				":board_title" =>$param_arr["board_title"]
+				,":board_contents" =>$param_arr["board_contents"]
+			);
+
+	$conn = null;
+	try
+	{
+		db_conn( $conn ); // PDO object set(DB연결)
+		$conn->beginTransaction(); // Transaction 시작
+		$stmt = $conn->prepare( $sql ); // statement object set
+		$stmt->execute( $arr_prepare ); // DB request
+		$result_cnt = $stmt->rowCount(); // query 적용 recode 갯수
+		$conn->commit();
+	}
+	catch( Exception $e )
+	{
+		$conn->rollback();
+		return $e->getMessage();
+	}
+	finally
+	{
+		$conn = null; // PDO 파기
+	}
+
+	return $result_cnt;
+}
+
+// TODO
+// $arr = array("board_title" => "test", "board_contents" => "test contents");
+// echo insert_board_info( $arr );
+
+// TODO

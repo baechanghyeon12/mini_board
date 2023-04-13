@@ -1,0 +1,1 @@
+	<h1><a href="board_list.php"><img src="./img/리그오브레전드로고-300x138.png" alt="로고"></a></h1>

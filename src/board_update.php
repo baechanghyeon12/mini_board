@@ -1,6 +1,7 @@
 <?php
 	define( "SRC_ROOT", $_SERVER["DOCUMENT_ROOT"]."/mini_board/src/" );
 	define( "URL_DB", SRC_ROOT."common/db_common.php" );
+	define( "URL_HEADER", SRC_ROOT."board_header.php" );
 	include_once( URL_DB );
 	
 	// Request Method를 획득
@@ -50,7 +51,7 @@
 	<title>게시판</title>
 </head>
 <body>
-	<h1><a href="board_list.php"><img src="./img/리그오브레전드로고-300x138.png" alt="로고"></a></h1>
+<?php include_once( URL_HEADER );?>
 	<div class="main_img">
 		<form method="post" action="board_update.php" class="div_base">
 			<label  for="bno">게시글 번호 : </label>
@@ -69,7 +70,6 @@
 				</a>
 			</button>
 		</form>
-		<button type="button"><a href="board_list.php">리스트</a></button>
 </div>
 </body>
 </html>

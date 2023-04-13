@@ -1,6 +1,6 @@
 <?php
     define( "DOC_ROOT", $_SERVER["DOCUMENT_ROOT"]."/" );
-    define( "URL_DB", DOC_ROOT."mini_board/src/common/db_common.php" );
+    define( "URL_DB", DOC_ROOT."mini_board/src-배창현/common/db_common.php" );
     include_once( URL_DB );
 
     // Request Method를 획득

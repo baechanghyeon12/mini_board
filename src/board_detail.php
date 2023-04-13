@@ -41,7 +41,7 @@ $result_info = select_board_info_no( $arr_get["board_no"] );
             </a>
         </button>
         <button type="button">
-            <a href="board_delete.php?board_no=<?php echo $result_info["board_no"] ?>" class="page_button">
+            <a href="board_delete.php?board_no=<?php echo $result_info["board_no"] ?>" class="page_button_del">
                 삭제
             </a>
         </button>

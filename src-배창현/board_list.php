@@ -1,7 +1,7 @@
 <?php
     define( "DOC_ROOT", $_SERVER["DOCUMENT_ROOT"]."/" ); // $_SERVER["DOCUMENT_ROOT"]에는 C:\Apache24\htdocs라는 값이 들어가 있다.
                                                          // $_SERVER["DOCUMENT_ROOT"]."/"을 DOC_ROOT에 상수로 정의해 준다.
-    define( "URL_DB", DOC_ROOT."mini_board/src/common/db_common.php" );
+    define( "URL_DB", DOC_ROOT."mini_board/src-배창현/common/db_common.php" );
     include_once( URL_DB );
     $http_method = $_SERVER["REQUEST_METHOD"]; //어떤식으로 요청했는지 값을 $http_method에 담는다
 
@@ -91,7 +91,7 @@ else
                 ?>
                     <tr>
                         <td class='td_no'><?php echo $recode["board_no"] ?></td>
-                        <td class='td_tit'><a href="board_update.php?board_no=<?php echo $recode["board_no"]; echo $flg_serch ? "&board_serch=".$board_serch : "" ?> " class="tit_a"><?php echo $recode["board_title"] ?></a></td>
+                        <td class='td_tit'><a href="board_update.php?board_no=<?php echo $recode["board_no"]; echo $flg_serch ? "&board_serch=".$board_serch : "" ?> "><?php echo $recode["board_title"] ?></a></td>
                         <td class='td_date'><?php echo $recode["board_write_date"] ?></td>
                     </tr>
                 <?php
@@ -145,7 +145,7 @@ else
     <?php
         }
     ?>
-    <form method="post" >
+    <form method="post" action="" >
         <div class="serch">
             <label for="serch"></label>
             <input type="text" name="board_serch" id="serch">

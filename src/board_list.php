@@ -1,6 +1,7 @@
 <?php
 	define( "SRC_ROOT", $_SERVER["DOCUMENT_ROOT"]."/mini_board/src/" );
 	define( "URL_DB", SRC_ROOT."common/db_common.php" );
+	define( "URL_HEADER", SRC_ROOT."board_header.php" );
 	include_once( URL_DB );
 
 	// GET 체크
@@ -45,10 +46,11 @@
 	<title>게시판</title>
 </head>
 <body>
-	<h1><a href="board_list.php"><img src="./img/리그오브레전드로고-300x138.png" alt="로고"></a></h1>
+	<?php include_once( URL_HEADER );?>
 	<div class="main_img">
-		<h2>자유게시판</h2>
+		<h2>자유게시판<?php echo "   ".$page_num."페이지" ?></h2>
 		<div class='div_base'>
+			<button type="button" class="write_cs"><a href="board_insert.php">게시글 작성</a></button>
 			<table  class="table_cs">
 				<thead class="thead_cs">
 					<tr class="th_tr_cs">
